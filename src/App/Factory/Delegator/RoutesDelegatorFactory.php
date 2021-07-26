@@ -10,7 +10,7 @@ use Mezzio\Application;
 /**
  * @see https://docs.mezzio.dev/mezzio/v3/features/container/delegator-factories/
  */
-class RoutesDelegatorFactory
+class RouteDelegatorFactory
 {
     public function __invoke(ContainerInterface $container, $serviceName, callable $callback): Application
     {
