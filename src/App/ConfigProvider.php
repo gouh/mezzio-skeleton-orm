@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Factory\Delegators\RoutesDelegatorFactory;
+use App\Factory\Delegator\RoutesDelegatorFactory;
 use Mezzio\Application;
 
 /**

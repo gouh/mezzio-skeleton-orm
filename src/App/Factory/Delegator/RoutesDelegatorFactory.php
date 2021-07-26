@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Factory\Delegators;
+namespace App\Factory\Delegator;
 
 use Psr\Container\ContainerInterface;
 use Mezzio\Application;
