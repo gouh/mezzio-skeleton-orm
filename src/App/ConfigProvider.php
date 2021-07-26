@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Factory\Delegators\RoutesDelegatorFactory;
+use Mezzio\Application;
+
 /**
  * The configuration provider for the App module
  *
@@ -31,11 +34,13 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'invokables' => [
-                Handler\PingHandler::class => Handler\PingHandler::class,
+            'delegators' => [
+                Application::class => [
+                    RoutesDelegatorFactory::class
+                ]
             ],
             'factories'  => [
-                Handler\HealthHandler::class => Handler\HealthHandlerFactory::class,
+                Handler\HealthHandler::class => Factory\Handler\HealthHandlerFactory::class,
             ],
         ];
     }

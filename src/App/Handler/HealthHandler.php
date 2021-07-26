@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use Fig\Http\Message\StatusCodeInterface;
 use Hangouh\LaminasHealth\Service\RedisConnectionService;
 use Hangouh\LaminasHealth\Service\SqlConnectionService;
 use Psr\Http\Message\ResponseInterface;
@@ -31,11 +32,19 @@ class HealthHandler implements RequestHandlerInterface
         $this->redisConnectionService = $redisConnectionService;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     * @see https://sawtooth.hyperledger.org/docs/core/nightly/0-8/architecture/rest_api.html
+     * @see
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new JsonResponse([
-            'sql' => $this->sqlConnectionService->checkConnection(),
-            'redis' => $this->redisConnectionService->checkConnection()
-        ]);
+            'data' => [
+                'sql_connection' => $this->sqlConnectionService->checkConnection(),
+                'redis_connection' => $this->redisConnectionService->checkConnection()
+            ]
+        ], StatusCodeInterface::STATUS_OK);
     }
 }

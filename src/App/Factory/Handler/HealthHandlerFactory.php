@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Handler;
+namespace App\Factory\Handler;
 
+use App\Handler\HealthHandler;
 use Hangouh\LaminasHealth\Service\RedisConnectionService;
 use Hangouh\LaminasHealth\Service\SqlConnectionService;
 use Psr\Container\ContainerInterface;
