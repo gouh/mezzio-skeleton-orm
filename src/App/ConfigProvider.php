@@ -35,7 +35,7 @@ class ConfigProvider
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
             'factories'  => [
-                Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                Handler\HealthHandler::class => Handler\HealthHandlerFactory::class,
             ],
         ];
     }

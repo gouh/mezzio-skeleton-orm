@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AppTest\Handler;
 
-use App\Handler\HomePageHandler;
+use App\Handler\HealthHandler;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouterInterface;
@@ -36,7 +36,7 @@ class HomePageHandlerTest extends TestCase
 
     public function testReturnsJsonResponseWhenNoTemplateRendererProvided()
     {
-        $homePage = new HomePageHandler(
+        $homePage = new HealthHandler(
             get_class($this->container->reveal()),
             $this->router->reveal(),
             null
@@ -55,7 +55,7 @@ class HomePageHandlerTest extends TestCase
             ->render('app::home-page', Argument::type('array'))
             ->willReturn('');
 
-        $homePage = new HomePageHandler(
+        $homePage = new HealthHandler(
             get_class($this->container->reveal()),
             $this->router->reveal(),
             $renderer->reveal()

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AppTest\Handler;
 
-use App\Handler\HomePageHandler;
-use App\Handler\HomePageHandlerFactory;
+use App\Handler\HealthHandler;
+use App\Handler\HealthHandlerFactory;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use PHPUnit\Framework\TestCase;
@@ -30,14 +30,14 @@ class HomePageHandlerFactoryTest extends TestCase
 
     public function testFactoryWithoutTemplate()
     {
-        $factory = new HomePageHandlerFactory();
+        $factory = new HealthHandlerFactory();
         $this->container->has(TemplateRendererInterface::class)->willReturn(false);
 
-        self::assertInstanceOf(HomePageHandlerFactory::class, $factory);
+        self::assertInstanceOf(HealthHandlerFactory::class, $factory);
 
         $homePage = $factory($this->container->reveal());
 
-        self::assertInstanceOf(HomePageHandler::class, $homePage);
+        self::assertInstanceOf(HealthHandler::class, $homePage);
     }
 
     public function testFactoryWithTemplate()
@@ -47,10 +47,10 @@ class HomePageHandlerFactoryTest extends TestCase
             ->get(TemplateRendererInterface::class)
             ->willReturn($this->prophesize(TemplateRendererInterface::class));
 
-        $factory = new HomePageHandlerFactory();
+        $factory = new HealthHandlerFactory();
 
         $homePage = $factory($this->container->reveal());
 
-        self::assertInstanceOf(HomePageHandler::class, $homePage);
+        self::assertInstanceOf(HealthHandler::class, $homePage);
     }
 }
