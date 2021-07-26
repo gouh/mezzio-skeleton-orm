@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Factory\Delegator\RoutesDelegatorFactory;
+use App\Factory\Delegator\RouteDelegatorFactory;
 use Mezzio\Application;
 
 /**
@@ -36,7 +36,7 @@ class ConfigProvider
         return [
             'delegators' => [
                 Application::class => [
-                    RoutesDelegatorFactory::class
+                    RouteDelegatorFactory::class
                 ]
             ],
             'factories'  => [
