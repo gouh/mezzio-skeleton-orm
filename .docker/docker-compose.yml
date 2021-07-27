@@ -1,0 +1,41 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: mariana
+
+services:
+  mezzioskeleton-nginx:
+   container_name: mezzioskeleton-nginx
+   image: mezzioskeleton-nginx
+   build:
+    context: ./nginx
+    args:
+      - NGINX_HOST_HTTP_PORTS=${NGINX_HOST_HTTP_PORTS}
+      - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
+   restart: unless-stopped
+   expose:
+     - ${NGINX_HOST_HTTP_PORT}
+   volumes:
+     - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+     - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
+     - ${NGINX_SITES_PATH}:/etc/nginx/templates
+   environment:
+     - VIRTUAL_HOST=${NGINX_VHOST}
+     - PHP_FPM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
+     - CODE_PATH=${APP_CODE_PATH_CONTAINER}
+   links:
+     - ${NGINX_PHP_UPSTREAM_CONTAINER}
+
+  mezzioskeleton-php74:
+    container_name: ${NGINX_PHP_UPSTREAM_CONTAINER}
+    image: ${NGINX_PHP_UPSTREAM_CONTAINER}
+    build:
+      context: ./php
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    env_file:
+      - php.env
